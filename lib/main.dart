@@ -39,7 +39,6 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       // 選択中のタブに対応するページを表示する
       body: pages[_currentIndex],
-
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {

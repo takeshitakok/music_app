@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'playback_screen.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -35,13 +34,27 @@ class _SearchPageState extends State<SearchPage> {
 
     // APIにリクエストしてJSONを取得
     final res = await http.get(url);
-    // 文字列JSONをMapに変換
-    final json = jsonDecode(res.body);
-
-    // 画面を更新して結果を表示
-    setState(() {
-      results = json['results'];
-    });
+    // ステータスコードを確認し、成功時のみJSONをパースして画面を更新
+    if (res.statusCode == 200) {
+      try {
+        // 文字列JSONをMapに変換
+        final json = jsonDecode(res.body);
+        // 画面を更新して結果を表示
+        setState(() {
+          results = json['results'] ?? [];
+        });
+      } catch (_) {
+        // JSONパースに失敗した場合は結果をクリア
+        setState(() {
+          results = [];
+        });
+      }
+    } else {
+      // エラーレスポンス時は結果をクリア（必要に応じてエラーメッセージ表示などを追加）
+      setState(() {
+        results = [];
+      });
+    }
   }
 
   @override
