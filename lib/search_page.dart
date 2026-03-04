@@ -117,12 +117,12 @@ class _SearchPageState extends State<SearchPage> {
                             subtitle: Text(item['artistName'] ?? ''),
                             // タップした曲の情報を渡して再生画面に移動する
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => PlaybackScreen(item: item),
-                                ),
-                              );
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (_) => PlaybackScreen(item: item),
+                              //   ),
+                              // );
                             }
                           );
                         },
